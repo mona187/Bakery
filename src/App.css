@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+#shop-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+p {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 50;
+}
+.text {
+  text-align: center;
+}
+.cake-image {
+  width: 200px;
+  height: 200px;
+}
+
+.cake {
+  margin: 20px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Background {
+  color: #61dafb;
+}
