@@ -1,11 +1,12 @@
 import "../App.css";
+import { ProductWrapper } from "../styles";
 const BakeryItems = (props) => {
   return (
-    <div className="cake">
-      <img alt={props.name} className="cake-image" src={props.image} />
-      <p className="text">{props.name}</p>
-      <p className="text">{props.price} KD</p>
-    </div>
+    <ProductWrapper>
+      <img alt={props.name} src={props.image} />
+      <p>{props.name}</p>
+      <p>{props.price} KD</p>
+    </ProductWrapper>
   );
 };
 

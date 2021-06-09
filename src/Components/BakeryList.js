@@ -1,8 +1,9 @@
 import Cakes from "../products";
 import "../App.css";
 import BakeryItems from "./BakeryItems";
+import { CakeList } from "../styles";
 const BakeryList = () => {
-  const CakeList = Cakes.map((Cake) => (
+  const cakelist = Cakes.map((Cake) => (
     <BakeryItems
       name={Cake.name}
       price={Cake.price}
@@ -10,7 +11,7 @@ const BakeryList = () => {
       key={Cake.id}
     />
   ));
-  return CakeList;
-};
 
+  return <CakeList>{cakelist}</CakeList>;
+};
 export default BakeryList;
