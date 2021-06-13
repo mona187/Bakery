@@ -6,7 +6,7 @@ body{
     background-color: ${(props) => props.theme.backgroundColor};
 }
 `;
-export const CakeList = styled.div`
+export const Cakestyle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -44,4 +44,10 @@ export const ThemeButton = styled.button`
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.backgroundColor};
+`;
+export const SearchBarStyled = styled.input`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 40%;
 `;

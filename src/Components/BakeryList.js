@@ -1,17 +1,31 @@
 import Cakes from "../products";
 import "../App.css";
 import BakeryItems from "./BakeryItems";
-import { CakeList } from "../styles";
-const BakeryList = () => {
-  const cakelist = Cakes.map((Cake) => (
+import { Cakestyle } from "../styles";
+import { useState } from "react";
+import SearchBar from "./SearchBar";
+const CakeList = () => {
+  const [query, setQuery] = useState("");
+
+  const cakelist = Cakes.filter(
+    (cake) =>
+      cake.name.toLowerCase().includes(query) ||
+      cake.name.toUpperCase().includes(query) ||
+      cake.price.toString().includes(query)
+  ).map((cake) => (
     <BakeryItems
-      name={Cake.name}
-      price={Cake.price}
-      image={Cake.image}
-      key={Cake.id}
+      name={cake.name}
+      price={cake.price}
+      image={cake.image}
+      key={cake.id}
     />
   ));
 
-  return <CakeList>{cakelist}</CakeList>;
+  return (
+    <div>
+      <SearchBar setQuery={setQuery} />
+      <Cakestyle>{cakelist}</Cakestyle>;
+    </div>
+  );
 };
-export default BakeryList;
+export default CakeList;
