@@ -20,8 +20,6 @@ const Home = () => {
           />
         </body>
       </div>
-
-      <BakeryList />
     </div>
   );
 };

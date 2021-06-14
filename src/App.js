@@ -5,7 +5,9 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle, ThemeButton } from "./styles";
 // use states
 import { useState } from "react";
-
+import CakeList from "./Components/BakeryList";
+import CakeDetail from "./Components/CakeDetail";
+import Cakes from "./products";
 const theme = {
   light: {
     mainColor: "#293241",
@@ -19,6 +21,10 @@ const theme = {
 
 function App() {
   const [currentTheme, setTheme] = useState(theme.light);
+  const [cake, setCake] = useState(null);
+  const setView = () => {
+    return cake ? <CakeDetail cake={cake} /> : <CakeList setCake={setCake} />;
+  };
 
   const toggleTheme = () => {
     currentTheme === theme.dark ? setTheme(theme.light) : setTheme(theme.dark);
@@ -33,6 +39,7 @@ function App() {
           <ThemeButton onClick={toggleTheme}>{themeButtonText}</ThemeButton>
           <Home />
         </div>
+        {setView()}
       </ThemeProvider>
     </div>
   );

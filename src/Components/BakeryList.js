@@ -4,7 +4,7 @@ import BakeryItems from "./BakeryItems";
 import { Cakestyle } from "../styles";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
-const CakeList = () => {
+const CakeList = (props) => {
   const [query, setQuery] = useState("");
 
   const cakelist = Cakes.filter(
@@ -13,12 +13,7 @@ const CakeList = () => {
       cake.name.toUpperCase().includes(query) ||
       cake.price.toString().includes(query)
   ).map((cake) => (
-    <BakeryItems
-      name={cake.name}
-      price={cake.price}
-      image={cake.image}
-      key={cake.id}
-    />
+    <BakeryItems cake={cake} key={cake.id} setCake={props.setCake} />
   ));
 
   return (
