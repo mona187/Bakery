@@ -1,48 +1,80 @@
 import "./App.css";
+import react from "react";
 import Home from "./Components/Home";
-
+// Route
+import { Route, Switch } from "react-router";
+import NavBar from "./Components/NavBar";
+// styles
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, ThemeButton } from "./styles";
+import { GlobalStyle, ThemeButton, NavCakes } from "./styles";
 // use states
 import { useState } from "react";
 import CakeList from "./Components/BakeryList";
 import CakeDetail from "./Components/CakeDetail";
-import Cakes from "./products";
+import cakes from "./products";
+import { Link } from "react-router-dom";
 const theme = {
   light: {
     mainColor: "#293241",
     backgroundColor: "#ffc8dd",
+    DeleteColor: "red",
   },
   dark: {
     mainColor: "#ffc8dd",
     backgroundColor: "#293241",
+    DeleteColor: "red",
   },
 };
 
 function App() {
-  const [currentTheme, setTheme] = useState(theme.light);
-  const [cake, setCake] = useState(null);
-  const setView = () => {
-    return cake ? <CakeDetail cake={cake} /> : <CakeList setCake={setCake} />;
-  };
+  const [currentTheme, setCurrentTheme] = useState("dark");
+  // const [cake, setCake] = useState(null);
+  // const [_cakes, setCakes] = useState(cakes);
+
+  // const cakeDelete = (cakeId) => {
+  // const updatedCakes = _cakes.filter((cake) => cake.id !== cakeId);
+  // setCakes(updatedCakes);}
+
+  // const setView = () => {
+  // return cake ? (
+  // <CakeDetail cake={cake} setCake={setCake} cakeDelete={cakeDelete} />
+  // ) : (
+  // <CakeList setCake={setCake} cakes={_cakes} cakeDelete={cakeDelete} />
+  // );
+  // };
 
   const toggleTheme = () => {
-    currentTheme === theme.dark ? setTheme(theme.light) : setTheme(theme.dark);
+    setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
-  const themeButtonText =
-    currentTheme === theme.dark ? "Light Mode" : "Dark Mode";
+  // const themeButtonText =
+  // currentTheme === theme.dark ? "Light Mode" : "Dark Mode";
   return (
     <div>
-      <ThemeProvider theme={currentTheme}>
+      <ThemeProvider theme={theme[currentTheme]}>
         <GlobalStyle />
         <div>
-          <ThemeButton onClick={toggleTheme}>{themeButtonText}</ThemeButton>
-          <Home />
+          <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
+
+          {/* <NavCakes to="/cakes">Cakes</NavCakes> */}
+          <Switch>
+            <Route path="/cakes/:cakeslug">
+              <CakeDetail />
+            </Route>
+
+            <Route path="/cakes">
+              <CakeList
+              // setCake={setCake}
+              // cakes={_cakes}
+              // cakeDelete={cakeDelete}
+              />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
         </div>
-        {setView()}
       </ThemeProvider>
     </div>
   );
 }
-
 export default App;

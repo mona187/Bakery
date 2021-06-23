@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-
+import { Link, NavLink } from "react-router-dom";
 export const GlobalStyle = createGlobalStyle`
 body{
     color: ${(props) => props.theme.mainColor};
@@ -65,4 +65,24 @@ export const DetailWrapper = styled.div`
   p {
     vertical-align: middle;
   }
+`;
+export const DeleteButtonStyle = styled.p`
+  color: ${(props) => props.theme.DeleteColor};
+  cursor: pointer;
+`;
+export const NavCakes = styled(NavLink)`
+  color: ${(props) => props.theme.mainColor};
+  margin: 10px;
+  && active {
+    color: ${(props) => props.theme.DeleteColor};
+  }
+`;
+export const Logo = styled(Link)`
+  padding: 1em;
+  img {
+    width: 8rem;
+  }
+`;
+export const NavStyles = styled.nav`
+  background-color: ${(props) => props.theme.backgroundColor};
 `;

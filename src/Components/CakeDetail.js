@@ -1,16 +1,28 @@
 import { useState } from "react/cjs/react.development";
 import { DetailWrapper } from "../styles";
 import CakeList from "./BakeryList";
-
-const CakeDetail = (props) => {
+import DeleteButton from "./buttons/DeleteButton";
+import { useParams, Redirect } from "react-router-dom";
+import cakeStore from "../stores/cakeStore";
+import { observer } from "mobx-react";
+const CakeDetail = () => {
+  const cakeSlug = useParams().cakeSlug;
+  const cake = cakeStore.cakes.find((cake) => cake.slug === cakeSlug);
+  if (!cake) return <Redirect to="/cakes" />;
   return (
     <DetailWrapper>
-      <img src={props.cake.image} alt={props.cake.name} />
-      <p>{props.cake.name}</p>
-      <p>{props.cake.description}</p>
-      <p>{props.cake.price}</p>
+      <img src={cake.image} alt={cake.name} />
+      <p>{cake.name}</p>
+      <p>{cake.description}</p>
+      <p>{cake.price}KD</p>
+      <DeleteButton
+        // cakeDelete={props.cakeDelete}
+        cakeId={cake.id}
+        // setCake={props.setCake}
+      />
+      <button onClick={() => props.setCake(null)}>Back</button>
     </DetailWrapper>
   );
 };
 
-export default CakeDetail;
+export default observer(CakeDetail);

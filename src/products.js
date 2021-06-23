@@ -1,8 +1,9 @@
-const Cakes = [
+const cakes = [
   {
     id: 1,
     name: "Red velvet cake",
-    price: 100,
+    slug: "red-velvet-cake",
+    price: 1000,
     description:
       "Calories:300 cal. Contains red dye extracted from a famous island's flower",
     image:
@@ -11,7 +12,8 @@ const Cakes = [
   {
     id: 2,
     name: "Chocolate cake",
-    price: 200,
+    slug: "chocolate-cake",
+    price: 2000,
     description: "Calories:400 cal. Cocoa beans imported from Tropical forests",
     image:
       "https://images.immediate.co.uk/production/volatile/sites/2/2019/04/Choc-Fudge-Cake-b2d1909.jpg?quality=45&resize=620,413",
@@ -19,10 +21,11 @@ const Cakes = [
   {
     id: 3,
     name: "Lotus Cake",
-    price: 300,
+    slug: "lotus-cake",
+    price: 3000,
     description: "Calories:500 cal. Contains walnuts, warning! ",
     image:
       "https://momsmag.rahetbally.com/wp-content/uploads/2019/12/lotus-biscoff-ice-cream-cake-egypt.jpg",
   },
 ];
-export default Cakes;
+export default cakes;
