@@ -1,4 +1,3 @@
-import BakeryList from "./BakeryList";
 import "../App.css";
 const Home = () => {
   return (

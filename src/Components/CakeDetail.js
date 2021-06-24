@@ -1,13 +1,17 @@
-import { useState } from "react/cjs/react.development";
+// styles
 import { DetailWrapper } from "../styles";
-import CakeList from "./BakeryList";
+// components
 import DeleteButton from "./buttons/DeleteButton";
-import { useParams, Redirect } from "react-router-dom";
+// libraries
+import { useParams, Redirect, Link } from "react-router-dom";
+
+// mobx
 import cakeStore from "../stores/cakeStore";
 import { observer } from "mobx-react";
 const CakeDetail = () => {
   const cakeSlug = useParams().cakeSlug;
   const cake = cakeStore.cakes.find((cake) => cake.slug === cakeSlug);
+  // console.log(cakeStore.cakes);
   if (!cake) return <Redirect to="/cakes" />;
   return (
     <DetailWrapper>
@@ -15,12 +19,10 @@ const CakeDetail = () => {
       <p>{cake.name}</p>
       <p>{cake.description}</p>
       <p>{cake.price}KD</p>
-      <DeleteButton
-        // cakeDelete={props.cakeDelete}
-        cakeId={cake.id}
-        // setCake={props.setCake}
-      />
-      <button onClick={() => props.setCake(null)}>Back</button>
+      <DeleteButton cakeId={cake.id} />
+      <Link to="/cakes">
+        <button>Back</button>
+      </Link>
     </DetailWrapper>
   );
 };

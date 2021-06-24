@@ -1,18 +1,17 @@
 import "./App.css";
-import react from "react";
+
 import Home from "./Components/Home";
 // Route
 import { Route, Switch } from "react-router";
 import NavBar from "./Components/NavBar";
 // styles
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, ThemeButton, NavCakes } from "./styles";
+import { GlobalStyle } from "./styles";
 // use states
 import { useState } from "react";
 import CakeList from "./Components/BakeryList";
 import CakeDetail from "./Components/CakeDetail";
-import cakes from "./products";
-import { Link } from "react-router-dom";
+
 const theme = {
   light: {
     mainColor: "#293241",
@@ -57,7 +56,7 @@ function App() {
 
           {/* <NavCakes to="/cakes">Cakes</NavCakes> */}
           <Switch>
-            <Route path="/cakes/:cakeslug">
+            <Route path="/cakes/:cakeSlug">
               <CakeDetail />
             </Route>
 

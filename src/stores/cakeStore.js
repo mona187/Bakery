@@ -1,14 +1,23 @@
 import cakes from "../products";
-import { makeAutoObservable } from "mobx";
+import { makeObservable, observable, action } from "mobx";
+import slugify from "react-slugify";
+
 class CakeStore {
   cakes = cakes;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      cakes: observable,
+      cakeDelete: action,
+    });
   }
-  cakeDelete = (cakeid) => {
-    const updatedCakes = this.cakes.filter((cake) => cake.id !== cakeid);
-    this.cakes = updatedCakes;
+  cakeDelete = (cakeId) => {
+    this.cakes = this.cakes.filter((cake) => cake.id !== cakeId);
+  };
+  cakeCreate = (newCake) => {
+    newCake.id = this.cakes.length + 1;
+    newCake.slug = slugify(newCake.name);
+    this.cakes.push(newCake);
   };
 }
 

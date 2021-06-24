@@ -1,12 +1,12 @@
 import "../App.css";
 import { ProductWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
-import NavBar from "./NavBar";
+
 import { Link } from "react-router-dom";
 const BakeryItems = (props) => {
   return (
     <ProductWrapper>
-      <Link to={`/cakes/${props.cake.id}`}>
+      <Link to={`/cakes/${props.cake.slug}`}>
         <img alt={props.cake.name} src={props.cake.image} />
       </Link>
       <p>{props.cake.name}</p>
