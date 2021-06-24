@@ -5,19 +5,24 @@ import { useState } from "react";
 import { CreateButtonStyled } from "../../styles";
 import cakeStore from "../../stores/cakeStore";
 const CakeModal = (props) => {
-  const [cake, setCake] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-  });
+  const [cake, setCake] = useState(
+    props.oldCake
+      ? props.oldCake
+      : {
+          name: "",
+          price: 0,
+          description: "",
+          image: "",
+        }
+  );
 
   const handleChange = (event) => {
     setCake({ ...cake, [event.target.name]: event.target.value });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    cakeStore.cakeCreate(cake);
+    if (props.oldCake) cakeStore.cakeUpdate(cake);
+    else cakeStore.cakeCreate(cake);
     props.closeModal();
   };
   return (
@@ -37,7 +42,7 @@ const CakeModal = (props) => {
                 type="text"
                 onChange={handleChange}
                 name="name"
-                required
+                value={cake.name}
               />
             </div>
             <div className="col-6">
@@ -48,7 +53,7 @@ const CakeModal = (props) => {
                 min="1"
                 onChange={handleChange}
                 name="price"
-                required
+                value={cake.price}
               />
             </div>
           </div>
@@ -59,7 +64,7 @@ const CakeModal = (props) => {
               type="text"
               onChange={handleChange}
               name="description"
-              required
+              value={cake.description}
             />
           </div>
           <div className="form-group">
@@ -69,10 +74,12 @@ const CakeModal = (props) => {
               type="text"
               onChange={handleChange}
               name="image"
-              required
+              value={cake.image}
             />
           </div>
-          <CreateButtonStyled>Add Cake</CreateButtonStyled>
+          <CreateButtonStyled>
+            {props.oldCake ? "Update" : "Add Cake"}
+          </CreateButtonStyled>
         </form>
       </Modal>
     </div>

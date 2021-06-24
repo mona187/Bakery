@@ -17,11 +17,13 @@ const theme = {
     mainColor: "#293241",
     backgroundColor: "#ffc8dd",
     DeleteColor: "red",
+    color: "pink",
   },
   dark: {
     mainColor: "#ffc8dd",
     backgroundColor: "#293241",
     DeleteColor: "red",
+    color: "pink",
   },
 };
 

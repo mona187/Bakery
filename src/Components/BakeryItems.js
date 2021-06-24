@@ -1,8 +1,9 @@
 import "../App.css";
 import { ProductWrapper } from "../styles";
 import DeleteButton from "./buttons/DeleteButton";
-
+import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
+import UpdateButton from "./buttons/UpdateButton";
 const BakeryItems = (props) => {
   return (
     <ProductWrapper>
@@ -11,8 +12,8 @@ const BakeryItems = (props) => {
       </Link>
       <p>{props.cake.name}</p>
       <p>{props.cake.price} KD</p>
+      <UpdateButton cake={props.cake} />
       <DeleteButton
-        cakeDelete={props.cakeDelete}
         cakeId={props.cake.id}
         // setCake={props.setCake}
       />
@@ -20,4 +21,4 @@ const BakeryItems = (props) => {
   );
 };
 
-export default BakeryItems;
+export default observer(BakeryItems);

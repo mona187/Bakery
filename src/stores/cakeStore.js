@@ -19,6 +19,15 @@ class CakeStore {
     newCake.slug = slugify(newCake.name);
     this.cakes.push(newCake);
   };
+  cakeUpdate = (updateCake) => {
+    const cake = this.cakes.find((cake) => cake.id === updateCake.id);
+    cake.name = updateCake.name;
+    cake.price = updateCake.price;
+    cake.description = updateCake.description;
+    cake.image = updateCake.image;
+
+    cake.slug = slugify(updateCake.name);
+  };
 }
 
 const cakeStore = new CakeStore();
