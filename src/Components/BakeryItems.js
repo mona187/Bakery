@@ -15,6 +15,7 @@ const BakeryItems = (props) => {
       <UpdateButton cake={props.cake} />
       <DeleteButton
         cakeId={props.cake.id}
+        
         // setCake={props.setCake}
       />
     </ProductWrapper>

@@ -1,9 +1,8 @@
-import cakes from "../products";
 import { makeObservable, observable, action } from "mobx";
 import slugify from "react-slugify";
-
+import axios from "axios";
 class CakeStore {
-  cakes = cakes;
+  cakes = [];
 
   constructor() {
     makeObservable(this, {
@@ -11,9 +10,19 @@ class CakeStore {
       cakeDelete: action,
     });
   }
-  cakeDelete = (cakeId) => {
-    this.cakes = this.cakes.filter((cake) => cake.id !== cakeId);
+  fetchCakes = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/cakes");
+      this.cakes = response.data;
+    } catch (error) {
+      console.error("fetchCakes:", error);
+    }
   };
+  cakeDelete = (cakeId) => {
+    const updatedCakes = this.cakes.filter((cake) => cake.id !== cakeId);
+    this.cakes = updatedCakes;
+  };
+
   cakeCreate = (newCake) => {
     newCake.id = this.cakes.length + 1;
     newCake.slug = slugify(newCake.name);
@@ -29,7 +38,18 @@ class CakeStore {
     cake.slug = slugify(updateCake.name);
   };
 }
+// const updatedCakes=this.cakes.filter((cake)=> cake.id==cakeId)
+// this.cakes=updatesCakes
+// cakeDelete=async (cakeId)=>{
+//   try{
+//     await axios.delete(`http://localhost:8000/cakes/${cakeId}`)
+//     const updatedCakes=this.cakes.filter((cake)=>cake.id !=+cakeId)
+//  this.cakes=updateCakes }
+//  catch(error){
+//    console.error(error)
+//  }
+// }
 
 const cakeStore = new CakeStore();
-
+cakeStore.fetchCakes();
 export default cakeStore;
