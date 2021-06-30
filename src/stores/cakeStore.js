@@ -18,16 +18,27 @@ class CakeStore {
       console.error("fetchCakes:", error);
     }
   };
-  cakeDelete = (cakeId) => {
-    const updatedCakes = this.cakes.filter((cake) => cake.id !== cakeId);
-    this.cakes = updatedCakes;
+  cakeDelete = async (cakeId) => {
+    try {
+      await axios.delete(`http://localhost:8000/cakes/${cakeId}`);
+      const updatedCakes = this.cakes.filter((cake) => cake.id !== +cakeId);
+      this.cakes = updatedCakes;
+    } catch (error) {
+      console.error(error);
+    }
   };
+  // cakeDelete = (cakeId) => {
+  //   const updatedCakes = this.cakes.filter((cake) => cake.id !== cakeId);
+  //   this.cakes = updatedCakes;
+  // };
 
-  cakeCreate = (newCake) => {
-    newCake.id = this.cakes.length + 1;
-    newCake.slug = slugify(newCake.name);
-    this.cakes.push(newCake);
-  };
+  // cakeCreate = async (newCake) => {
+  //   try{
+  //     const response = await
+  //   newCake.id = this.cakes.length + 1;
+  //   newCake.slug = slugify(newCake.name);
+  //   this.cakes.push(newCake);
+  // };
   cakeUpdate = (updateCake) => {
     const cake = this.cakes.find((cake) => cake.id === updateCake.id);
     cake.name = updateCake.name;
@@ -40,16 +51,8 @@ class CakeStore {
 }
 // const updatedCakes=this.cakes.filter((cake)=> cake.id==cakeId)
 // this.cakes=updatesCakes
-// cakeDelete=async (cakeId)=>{
-//   try{
-//     await axios.delete(`http://localhost:8000/cakes/${cakeId}`)
-//     const updatedCakes=this.cakes.filter((cake)=>cake.id !=+cakeId)
-//  this.cakes=updateCakes }
-//  catch(error){
-//    console.error(error)
-//  }
-// }
 
 const cakeStore = new CakeStore();
 cakeStore.fetchCakes();
+
 export default cakeStore;
