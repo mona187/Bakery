@@ -32,25 +32,33 @@ class CakeStore {
   //   this.cakes = updatedCakes;
   // };
 
-  // cakeCreate = async (newCake) => {
-  //   try{
-  //     const response = await
-  //   newCake.id = this.cakes.length + 1;
-  //   newCake.slug = slugify(newCake.name);
-  //   this.cakes.push(newCake);
-  // };
-  cakeUpdate = (updateCake) => {
-    const cake = this.cakes.find((cake) => cake.id === updateCake.id);
-    cake.name = updateCake.name;
-    cake.price = updateCake.price;
-    cake.description = updateCake.description;
-    cake.image = updateCake.image;
+  cakeCreate = async (newCake) => {
+    try {
+      const response = await axios.post(`http://localhost:8000/cakes`, newCake);
+      this.cakes.push(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  cakeUpdate = async (updateCake) => {
+    try {
+      await axios.put(
+        `http://localhost:8000/cakes/${updateCake.id}`,
+        updateCake
+      );
 
-    cake.slug = slugify(updateCake.name);
+      const cake = this.cakes.find((cake) => cake.id === updateCake.id);
+      cake.name = updateCake.name;
+      cake.price = updateCake.price;
+      cake.description = updateCake.description;
+      cake.image = updateCake.image;
+
+      cake.slug = slugify(updateCake.name);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
-// const updatedCakes=this.cakes.filter((cake)=> cake.id==cakeId)
-// this.cakes=updatesCakes
 
 const cakeStore = new CakeStore();
 cakeStore.fetchCakes();
