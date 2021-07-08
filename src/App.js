@@ -9,9 +9,9 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles";
 // use states
 import { useState } from "react";
-import CakeList from "./Components/BakeryList";
+import CakeList from "./Components/CakeList";
 import CakeDetail from "./Components/CakeDetail";
-
+import { observer } from "mobx-react";
 const theme = {
   light: {
     mainColor: "#293241",
@@ -78,4 +78,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default observer(App);

@@ -3,7 +3,7 @@ import slugify from "react-slugify";
 import axios from "axios";
 class CakeStore {
   cakes = [];
-
+  loading = true;
   constructor() {
     makeObservable(this, {
       cakes: observable,
@@ -27,14 +27,15 @@ class CakeStore {
       console.error(error);
     }
   };
-  // cakeDelete = (cakeId) => {
-  //   const updatedCakes = this.cakes.filter((cake) => cake.id !== cakeId);
-  //   this.cakes = updatedCakes;
-  // };
 
   cakeCreate = async (newCake) => {
     try {
-      const response = await axios.post(`http://localhost:8000/cakes`, newCake);
+      const formData = new FormData();
+      for (const key in newCake) formData.append(key, newCake[key]);
+      const response = await axios.post(
+        `http://localhost:8000/cakes`,
+        formData
+      );
       this.cakes.push(response.data);
     } catch (error) {
       console.error(error);
@@ -42,18 +43,15 @@ class CakeStore {
   };
   cakeUpdate = async (updateCake) => {
     try {
-      await axios.put(
+      const formData = new FormData();
+      for (const key in updateCake) formData.append(key, updateCake[key]);
+      const response = await axios.put(
         `http://localhost:8000/cakes/${updateCake.id}`,
-        updateCake
+        formData
       );
 
       const cake = this.cakes.find((cake) => cake.id === updateCake.id);
-      cake.name = updateCake.name;
-      cake.price = updateCake.price;
-      cake.description = updateCake.description;
-      cake.image = updateCake.image;
-
-      cake.slug = slugify(updateCake.name);
+      for (const key in cake) cake[key] = response.data[key];
     } catch (error) {
       console.error(error);
     }
