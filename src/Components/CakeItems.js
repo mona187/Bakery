@@ -1,9 +1,14 @@
 import "../App.css";
+// styles
 import { ProductWrapper } from "../styles";
+// button
 import DeleteButton from "./buttons/DeleteButton";
+import UpdateButton from "./buttons/UpdateButton";
+// libraries
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import UpdateButton from "./buttons/UpdateButton";
+// stores
+import authStore from "../stores/authStore";
 const CakeItems = (props) => {
   return (
     <ProductWrapper>
@@ -12,12 +17,12 @@ const CakeItems = (props) => {
       </Link>
       <p>{props.cake.name}</p>
       <p>{props.cake.price} KD</p>
-      <UpdateButton cake={props.cake} />
-      <DeleteButton
-        cakeId={props.cake.id}
-
-        // setCake={props.setCake}
-      />
+      {authStore.user && (
+        <>
+          <UpdateButton cake={props.cake} />
+          <DeleteButton cakeId={props.cake.id} />
+        </>
+      )}
     </ProductWrapper>
   );
 };

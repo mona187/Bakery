@@ -7,8 +7,10 @@ import { useState } from "react";
 import CakeItems from "./CakeItems";
 import SearchBar from "./SearchBar";
 import CakeModal from "./modals/CakeModal";
-// mobx
+// store
 import cakeStore from "../stores/cakeStore";
+import authStore from "../stores/authStore";
+// mobx
 import { observer } from "mobx-react-lite";
 
 const CakeList = () => {
@@ -28,7 +30,9 @@ const CakeList = () => {
   return (
     <div>
       <SearchBar setQuery={setQuery} />
-      <AiFillPlusCircleStyled size="2em" onClick={openModal} />
+      {authStore.user && (
+        <AiFillPlusCircleStyled size="2em" onClick={openModal} />
+      )}
       <CakeModal isOpen={isOpen} closeModal={closeModal} />
       <Cakestyle>{cakelist}</Cakestyle>;
     </div>

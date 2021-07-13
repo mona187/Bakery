@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import axios from "axios";
 
+import instance from "./instance";
 class BakeryStore {
   bakeries = [];
   loading = true;
@@ -11,8 +12,7 @@ class BakeryStore {
 
   fetchBakeries = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/bakeries");
-      // here
+      const response = await instance.get("/bakeries");
       this.bakeries = response.data;
       this.loading = false;
     } catch (error) {
@@ -25,10 +25,7 @@ class BakeryStore {
       const formData = new FormData();
       for (const key in newBakery) formData.append(key, newBakery[key]);
 
-      const response = await axios.post(
-        "http://localhost:8000/bakeries",
-        formData
-      );
+      const response = await instance.post("/bakeries", formData);
       response.data.cookies = [];
       this.bakeries.push(response.data);
     } catch (error) {

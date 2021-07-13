@@ -1,5 +1,8 @@
 import { Logo, NavCakes, NavStyles, ThemeButton } from "../styles";
-
+import SignupButton from "./buttons/SignupButton";
+import SigninButton from "./buttons/SigninButton";
+import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 const NavBar = (props) => {
   return (
     <NavStyles className="navbar navbar-expand-lg">
@@ -16,8 +19,19 @@ const NavBar = (props) => {
             <ThemeButton onClick={props.toggleTheme} className="nav-item">
               {props.currentTheme === "light" ? "Dark" : "Light"} mode
             </ThemeButton>
+            {authStore.user ? (
+              <p>hello{authStore.user.username}</p>
+            ) : (
+              <>
+                <SigninButton />
+                <SignupButton />
+              </>
+            )}
             <NavCakes to="/cakes" className="nav-item">
               Cakes
+            </NavCakes>
+            <NavCakes to="/bakeries" className="nav-item">
+              Bakeries
             </NavCakes>
           </ul>
         </div>
@@ -26,4 +40,4 @@ const NavBar = (props) => {
   );
 };
 
-export default NavBar;
+export default observer(NavBar);

@@ -29,26 +29,11 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("dark");
-  // const [cake, setCake] = useState(null);
-  // const [_cakes, setCakes] = useState(cakes);
-
-  // const cakeDelete = (cakeId) => {
-  // const updatedCakes = _cakes.filter((cake) => cake.id !== cakeId);
-  // setCakes(updatedCakes);}
-
-  // const setView = () => {
-  // return cake ? (
-  // <CakeDetail cake={cake} setCake={setCake} cakeDelete={cakeDelete} />
-  // ) : (
-  // <CakeList setCake={setCake} cakes={_cakes} cakeDelete={cakeDelete} />
-  // );
-  // };
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
-  // const themeButtonText =
-  // currentTheme === theme.dark ? "Light Mode" : "Dark Mode";
+
   return (
     <div>
       <ThemeProvider theme={theme[currentTheme]}>
@@ -56,18 +41,13 @@ function App() {
         <div>
           <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
 
-          {/* <NavCakes to="/cakes">Cakes</NavCakes> */}
           <Switch>
             <Route path="/cakes/:cakeSlug">
               <CakeDetail />
             </Route>
 
             <Route path="/cakes">
-              <CakeList
-              // setCake={setCake}
-              // cakes={_cakes}
-              // cakeDelete={cakeDelete}
-              />
+              <CakeList />
             </Route>
             <Route exact path="/">
               <Home />
